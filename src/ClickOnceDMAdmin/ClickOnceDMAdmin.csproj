@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8165C8E8-2341-4F9E-B5B6-93C40BF18D47}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClickOnceDMAdmin</RootNamespace>
+    <AssemblyName>ClickOnceDMAdmin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Assets\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Assets\css\bootstrap-theme.css" />
+    <Content Include="Assets\css\bootstrap-theme.min.css" />
+    <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\css\docs.css" />
+    <Content Include="Assets\css\pygments-manni.css" />
+    <Content Include="Assets\css\signin.css" />
+    <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\img\glyphicons-halflings-white.png" />
+    <Content Include="Assets\img\glyphicons-halflings.png" />
+    <Content Include="Assets\js\application.js" />
+    <Content Include="Assets\js\bootstrap-datetimepicker.js" />
+    <Content Include="Assets\js\bootstrap.js" />
+    <Content Include="Assets\js\bootstrap.min.js" />
+    <Content Include="Assets\js\customizer.js" />
+    <Content Include="Assets\js\excanvas.js" />
+    <Content Include="Assets\js\excanvas.min.js" />
+    <Content Include="Assets\js\filesaver.js" />
+    <Content Include="Assets\js\holder.js" />
+    <Content Include="Assets\js\html5shiv.js" />
+    <Content Include="Assets\js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Assets\js\jquery.colorhelpers.js" />
+    <Content Include="Assets\js\jquery.colorhelpers.min.js" />
+    <Content Include="Assets\js\jquery.flot.canvas.js" />
+    <Content Include="Assets\js\jquery.flot.canvas.min.js" />
+    <Content Include="Assets\js\jquery.flot.categories.js" />
+    <Content Include="Assets\js\jquery.flot.categories.min.js" />
+    <Content Include="Assets\js\jquery.flot.crosshair.js" />
+    <Content Include="Assets\js\jquery.flot.crosshair.min.js" />
+    <Content Include="Assets\js\jquery.flot.errorbars.js" />
+    <Content Include="Assets\js\jquery.flot.errorbars.min.js" />
+    <Content Include="Assets\js\jquery.flot.fillbetween.js" />
+    <Content Include="Assets\js\jquery.flot.fillbetween.min.js" />
+    <Content Include="Assets\js\jquery.flot.image.js" />
+    <Content Include="Assets\js\jquery.flot.image.min.js" />
+    <Content Include="Assets\js\jquery.flot.js" />
+    <Content Include="Assets\js\jquery.flot.min.js" />
+    <Content Include="Assets\js\jquery.flot.navigate.js" />
+    <Content Include="Assets\js\jquery.flot.navigate.min.js" />
+    <Content Include="Assets\js\jquery.flot.pie.js" />
+    <Content Include="Assets\js\jquery.flot.pie.min.js" />
+    <Content Include="Assets\js\jquery.flot.resize.js" />
+    <Content Include="Assets\js\jquery.flot.resize.min.js" />
+    <Content Include="Assets\js\jquery.flot.selection.js" />
+    <Content Include="Assets\js\jquery.flot.selection.min.js" />
+    <Content Include="Assets\js\jquery.flot.stack.js" />
+    <Content Include="Assets\js\jquery.flot.stack.min.js" />
+    <Content Include="Assets\js\jquery.flot.symbol.js" />
+    <Content Include="Assets\js\jquery.flot.symbol.min.js" />
+    <Content Include="Assets\js\jquery.flot.threshold.js" />
+    <Content Include="Assets\js\jquery.flot.threshold.min.js" />
+    <Content Include="Assets\js\jquery.flot.time.js" />
+    <Content Include="Assets\js\jquery.flot.time.min.js" />
+    <Content Include="Assets\js\jquery.js" />
+    <Content Include="Assets\js\jszip.js" />
+    <Content Include="Assets\js\less.js" />
+    <Content Include="Assets\js\moment.js" />
+    <Content Include="Assets\js\raw-files.js" />
+    <Content Include="Assets\js\respond.min.js" />
+    <Content Include="Assets\js\uglify.js" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Preview\Default.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\PluginElement.cs" />
+    <Compile Include="Configuration\PluginElementCollection.cs" />
+    <Compile Include="Configuration\PluginRetrieverSection.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\ControlAttributeHelper.cs" />
+    <Compile Include="Master\Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Preview\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Preview\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Code\" />
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Master\Main.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Preview\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClickOnceDMLib\ClickOnceDMLib.csproj">
+      <Project>{CD6D9858-4A0A-42F4-8C31-2CC093054844}</Project>
+      <Name>ClickOnceDMLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50240</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
