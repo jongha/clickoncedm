@@ -10,16 +10,28 @@ using System.Configuration;
 using System.IO;
 using ClickOnceDMAdmin.Configuration;
 using System.Reflection;
+using ClickOnceDMLib;
+using System.Runtime.Serialization.Json;
+using ClickOnceDMLib.Structs;
+using ClickOnceDMLib.Path;
 
 namespace ClickOnceDMAdmin
 {
     public partial class Default : System.Web.UI.Page
     {
+        private Dictionary<string, SourceInfo> sourceList = new Dictionary<string, SourceInfo>();
         protected void Page_Load(object sender, EventArgs e)
         {
             PluginRetrieverSection plugins = ConfigurationManager.GetSection("pluginSettings") as PluginRetrieverSection;
             foreach (PluginElement el in plugins.Plugins)
             {
+                sourceList.Add(el.Name, new SourceInfo
+                {
+                    Source = el.Source,
+                    Value = el.Value,
+                    ConnectionString = ConfigurationManager.ConnectionStrings[el.Source].ConnectionString
+                });
+
                 rdoRecipeints.Items.Add(new ListItem(el.Name));
             }
 
@@ -31,18 +43,12 @@ namespace ClickOnceDMAdmin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            string queuePath = ConfigurationManager.AppSettings["QueuePath"];
-            if (!string.IsNullOrEmpty(queuePath))
-            {
-                queuePath = Path.Combine(queuePath, Guid.NewGuid().ToString());
-                if (!Directory.Exists(queuePath))
-                {
-                    Directory.CreateDirectory(queuePath);
+            string recipient = rdoRecipeints.SelectedValue;
+            SourceInfo sourceInfo = sourceList[recipient];
 
-                    //DataContractJsonSerializer serializer = new DataContractJsonSerializer();
-                    
-                }
-            }
+            TicketInfo ticketInfo = new TicketInfo();
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + Guid.NewGuid().ToString("N").Substring(0, 16).ToUpper() + ".ticket";
+            ticketInfo.SaveTicket(fileName, sourceInfo); // TODO: check result is success?
 
             Response.Redirect(Request.RawUrl, false);
         }

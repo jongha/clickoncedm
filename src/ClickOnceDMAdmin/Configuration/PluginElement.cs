@@ -15,18 +15,18 @@ namespace ClickOnceDMAdmin.Configuration
             set { this["name"] = value; }
         }
 
-        [ConfigurationProperty("type", IsRequired = true)]
-        public string Type
+        [ConfigurationProperty("source", IsRequired = true)]
+        public string Source
         {
-            get { return (string)this["type"]; }
-            set { this["type"] = value; }
+            get { return (string)this["source"]; }
+            set { this["source"] = value; }
         }
 
-        [ConfigurationProperty("query", IsRequired = true)]
-        public string Query
+        [ConfigurationProperty("value", IsRequired = true)]
+        public string Value
         {
-            get { return (string)this["query"]; }
-            set { this["query"] = value; }
+            get { return (string)this["value"]; }
+            set { this["value"] = value; }
         }
     }
 }

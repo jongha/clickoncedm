@@ -17,7 +17,6 @@
         </div>
         <div class="form-group col-md-12 col-xs-12">
             <label for="<%=rdoRecipeints.ClientID %>">Recipients</label>
-            <asp:TextBox ID="txtRecipient" runat="server" CssClass="form-control" placeholder="Recipient Email (user1@domain,user2@domain;user3@domain)" />
             <asp:RadioButtonList runat="server" ID="rdoRecipeints" CssClass="radio" RepeatLayout="Flow"></asp:RadioButtonList>
         </div>
         <div class="form-group col-md-12 col-xs-12">
