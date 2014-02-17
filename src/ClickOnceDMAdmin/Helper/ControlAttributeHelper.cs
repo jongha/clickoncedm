@@ -13,9 +13,9 @@ using System.Web.UI.HtmlControls;
 /// </summary>
 public class ControlAttributeHelper
 {
-	public ControlAttributeHelper()
-	{
-	}
+    public ControlAttributeHelper()
+    {
+    }
 
     public static void BindOnClickToReturnFunction(WebControl ctrl, string function)
     {

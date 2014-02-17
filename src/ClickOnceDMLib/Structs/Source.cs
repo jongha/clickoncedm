@@ -8,25 +8,25 @@ using System.Text;
 namespace ClickOnceDMLib.Structs
 {
     [DataContract]
-    public class SourceInfo
+    public class Source
     {
         private const string encryptKey = "8d48c686d84d46fdb1bff9a79d935430";
-        private string source;
+        private string privider;
         private string value;
         private string connectionString;
 
-        public SourceInfo EncryptedObject()
+        public Source EncryptedObject()
         {
-            this.source = AES.Encrypt(source, encryptKey);
+            this.privider = AES.Encrypt(privider, encryptKey);
             this.value = AES.Encrypt(value, encryptKey);
             this.connectionString = AES.Encrypt(connectionString, encryptKey);
 
             return this;
         }
 
-        public SourceInfo DecryptedObject()
+        public Source DecryptedObject()
         {
-            this.source = AES.Decrypt(source, encryptKey);
+            this.privider = AES.Decrypt(privider, encryptKey);
             this.value = AES.Decrypt(value, encryptKey);
             this.connectionString = AES.Decrypt(connectionString, encryptKey);
 
@@ -34,15 +34,15 @@ namespace ClickOnceDMLib.Structs
         }
 
         [DataMember]
-        public string Source
+        public string Provider
         {
             get
             {
-                return this.source;
+                return this.privider;
             }
             set
             {
-                this.source = value;
+                this.privider = value;
             }
         }
 

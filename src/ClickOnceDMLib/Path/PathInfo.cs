@@ -25,9 +25,9 @@ namespace ClickOnceDMLib.Path
 
     public class PathInfo : PathInfoBase
     {
-        public static string GetTicketFile(string fileName)
+        public static string CombinePath(string path, string fileName)
         {
-            return System.IO.Path.Combine(Ticket, fileName);
+            return System.IO.Path.Combine(path, fileName);
         }
 
         public static string Ticket
@@ -47,19 +47,11 @@ namespace ClickOnceDMLib.Path
         }
 
 
-        public static string Complete
+        public static string Trash
         {
             get
             {
-                return EnsurePath("Complete");
-            }
-        }
-
-        public static string Bad
-        {
-            get
-            {
-                return EnsurePath("Bad");
+                return EnsurePath("Trash");
             }
         }
 
