@@ -27,30 +27,38 @@ namespace ClickOnceDMTest
 
             int count = ticketProcess.GetTickets().Count;
 
+            Ticket ticket = new Ticket();
+
+            ticket.SenderName = "Sender";
+            ticket.SenderAddress = "user@hostname.com";
+            ticket.Subject = "Subject";
+            ticket.Body = "Body";
+            ticket.Source = new Source()
+            {
+                Provider = "System.Data.SqlClient",
+                Value = "select top 1000 userName as name, userEmail as address from Member where userEmail like 'user@hostname.com'",
+                ConnectionString = "Data Source=tiger02;Initial Catalog=ALToolsMember;Integrated Security=False;User Id=svcinfra;Password=dkdlvhsy10;MultipleActiveResultSets=True"
+            };
+
+
             string fileName = string.Empty;
 
-            ticketProcess.SaveTicket(new Source
-                {
-                    Provider = "System.Data.SqlClient",
-                    Value = "select top 1000 userName as name, userEmail as email from Member",
-                    ConnectionString = "Data Source=tiger02;Initial Catalog=ALToolsMember;Integrated Security=False;User Id=svcinfra;Password=dkdlvhsy10;MultipleActiveResultSets=True"
-                }, out fileName);
+            ticketProcess.SaveTicket(ticket);
 
             Assert.IsTrue(Directory.GetFiles(PathInfo.Ticket).Length == ++count);
 
             ticketProcess = new TicketProcess();
-            List<Source> sourceInfo = ticketProcess.GetSources();
             
-            Assert.IsTrue(sourceInfo.Count > 0);
+            Assert.IsTrue(ticketProcess.GetTickets().Count > 0);
         }
 
         [TestMethod]
         public void GetTickets()
         {
             TicketProcess ticketProcess = new TicketProcess();
-            List<Source> sourceInfo = ticketProcess.GetSources();
+            List<Ticket> tickets = ticketProcess.GetTickets();
 
-            Source source = sourceInfo[0];
+            Source source = tickets[0].DecryptedSource;
 
             Assert.IsTrue(!string.IsNullOrEmpty(source.Provider));
             Assert.IsTrue(!string.IsNullOrEmpty(source.Value));
@@ -60,10 +68,12 @@ namespace ClickOnceDMTest
         [TestMethod]
         public void GetSourceFromTicket()
         {
-            TicketProcess ticketProcess = new TicketProcess();
-            List<Source> sourceInfo = ticketProcess.GetSources();
+            MakeTicket();
 
-            Source source = sourceInfo[0];
+            TicketProcess ticketProcess = new TicketProcess();
+            List<Ticket> tickets = ticketProcess.GetTickets();
+
+            Source source = tickets[0].DecryptedSource;
 
             string value = source.Value;
             string connectionString = source.ConnectionString;

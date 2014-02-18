@@ -47,12 +47,18 @@ namespace ClickOnceDMAdmin
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string recipient = rdoRecipeints.SelectedValue;
-            Source sourceInfo = sourceList[recipient];
 
+            Ticket ticket = new Ticket();
+
+            ticket.SenderName = txtSenderName.Text.Trim();
+            ticket.SenderAddress = txtSenderAddress.Text.Trim();
+            ticket.Source = sourceList[recipient];
+            ticket.Subject = txtSubject.Text.Trim();
+            ticket.Body = txtHtml.Text;
+            
             TicketProcess ticketProcess = new TicketProcess();
 
-            string fileName = string.Empty;
-            ticketProcess.SaveTicket(sourceInfo, out fileName); // TODO: check result is success?
+            ticketProcess.SaveTicket(ticket); // TODO: check result is success?
 
             Response.Redirect(Request.RawUrl, false);
         }

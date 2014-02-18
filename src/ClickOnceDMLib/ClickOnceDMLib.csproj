@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Process\QueueProcess.cs" />
     <Compile Include="Structs\Queue.cs" />
+    <Compile Include="Structs\Recipient.cs" />
     <Compile Include="Structs\Source.cs" />
     <Compile Include="Structs\Ticket.cs" />
   </ItemGroup>

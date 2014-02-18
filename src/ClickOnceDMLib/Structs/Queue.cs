@@ -7,40 +7,40 @@ namespace ClickOnceDMLib.Structs
     [DataContract]
     public class Queue
     {
-        private string name;
-        private string email;
+        private Recipient[] recipient;
+        private Ticket ticket;
 
         [DataMember]
-        public string Name
+        public Ticket TicketData
         {
             get
             {
-                return this.name;
+                return this.ticket;
             }
             set
             {
-                this.name = value;
+                Ticket ticket = value;
+
+                this.ticket = new Ticket()
+                {
+                    SenderName = ticket.SenderName,
+                    SenderAddress = ticket.SenderAddress,
+                    Subject = ticket.Subject,
+                    Body = ticket.Body
+                };
             }
         }
 
         [DataMember]
-        public string Email
+        public Recipient[] RecipientData
         {
             get
             {
-                return this.email;
+                return this.recipient;
             }
             set
             {
-                // email address format valication
-                if (Regex.IsMatch(value, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"))
-                {
-                    this.email = value;
-                }
-                else
-                {
-                    throw new FormatException();
-                }
+                this.recipient = value;
             }
         }
     }

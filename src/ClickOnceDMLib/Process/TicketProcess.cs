@@ -20,68 +20,77 @@ namespace ClickOnceDMLib.Process
             List<Ticket> tickets = new List<Ticket>();
             foreach (string file in files)
             {
-                tickets.Add(new Ticket() { Name = System.IO.Path.GetFileName(file) });
+                Ticket ticket = null;
+                using (FileStream stream = new FileStream(PathInfo.CombinePath(PathInfo.Ticket, file), FileMode.Open))
+                {
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Ticket));
+                    ticket = (Ticket)serializer.ReadObject(stream);
+                }
+
+                if (ticket != null)
+                {
+                    tickets.Add(ticket);
+                }
             }
 
             return tickets;
         }
-
-        public List<Source> GetSources()
-        {
-            var l = from fi in GetTickets()
-                    orderby fi.Name ascending
-                    select fi.Source.DecryptedObject();
-
-            return l.ToList<Source>();
-        }
-
+        
         public bool EmptyTicket()
         {
-            try
+            lock (typeof(TicketProcess))
             {
-                foreach (Ticket ticket in GetTickets())
+                try
                 {
-                    File.Delete(System.IO.Path.Combine(PathInfo.Ticket, ticket.Name));
+                    foreach (Ticket ticket in GetTickets())
+                    {
+                        File.Delete(System.IO.Path.Combine(PathInfo.Ticket, ticket.FileName));
+                    }
+                    return true;
                 }
-                return true;
-            }
-            catch { }
+                catch { }
 
-            return false;
+                return false;
+            }
         }
 
         public bool RemoveTicket(Ticket ticket)
         {
-            try
+            lock (typeof(TicketProcess))
             {
-                File.Move(
-                    System.IO.Path.Combine(PathInfo.Ticket, ticket.Name),
-                    System.IO.Path.Combine(PathInfo.Trash, ticket.Name)
-                    );
-                return true;
-            }
-            catch { }
+                try
+                {
+                    File.Move(
+                        System.IO.Path.Combine(PathInfo.Ticket, ticket.FileName),
+                        System.IO.Path.Combine(PathInfo.Trash, ticket.FileName)
+                        );
+                    return true;
+                }
+                catch { }
 
-            return false;
+                return false;
+            }
         }
 
-        public bool SaveTicket(Source sourceInfo, out string fileName)
+        public Ticket SaveTicket(Ticket ticket)
         {
-            fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString("N").Substring(0, 16) + ".ticket";
+            ticket.FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString("N").Substring(0, 16) + ".ticket";
 
             try
             {
-                using (FileStream stream = new FileStream(System.IO.Path.Combine(PathInfo.Ticket, fileName), FileMode.CreateNew))
+                using (FileStream stream = new FileStream(System.IO.Path.Combine(PathInfo.Ticket, ticket.FileName), FileMode.CreateNew))
                 {
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Source));
-                    serializer.WriteObject(stream, sourceInfo.EncryptedObject());
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Ticket));
+
+                    ticket.Source = ticket.Source.EncryptedSource;
+                    serializer.WriteObject(stream, ticket);
                 }
 
-                return true;
+                return ticket;
             }
             catch
             {
-                return false;
+                return null;
             }
         }
     }

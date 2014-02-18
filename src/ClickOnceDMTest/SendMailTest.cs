@@ -16,18 +16,22 @@ namespace ClickOnceDMTest
         [TestMethod]
         public void SendMail()
         {
-            SendMailProcess sendMailProcess = new SendMailProcess("smtp.test.com", 25);
+            QueueTest queueTest = new QueueTest();
+            queueTest.BuildQueue();
+
+            SendMailProcess sendMailProcess = new SendMailProcess("smtp.hostname.com", 25);
 
             QueueProcess queueProcess = new QueueProcess();
-            foreach (Queue queue in queueProcess.GetQueue())
+            Queue queue = queueProcess.GetQueue();
+
+            foreach(Recipient recipient in queue.RecipientData)
             {
                 sendMailProcess.Send(
-                    new MailAddress("test@domain.com", "test"),
-                    new MailAddress[] { new MailAddress("test@domain.com", "test") },
-                    "subject|" + queue.Name + "|" + queue.Email,
-                    "body|" + queue.Name + "|" + queue.Email
+                    new MailAddress(queue.TicketData.SenderAddress, queue.TicketData.SenderName),
+                    new MailAddress[] { new MailAddress(recipient.Address, recipient.Name) },
+                    queue.TicketData.Subject,
+                    queue.TicketData.Body
                     );
-                
             }
         }
     }

@@ -31,13 +31,13 @@ namespace ClickOnceDMAdmin {
         protected global::System.Web.UI.WebControls.TextBox txtSenderName;
         
         /// <summary>
-        /// txtSenderEmail control.
+        /// txtSenderAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSenderEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtSenderAddress;
         
         /// <summary>
         /// rdoRecipeints control.

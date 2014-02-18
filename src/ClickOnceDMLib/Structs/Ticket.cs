@@ -1,24 +1,56 @@
 ﻿using ClickOnceDMLib.Path;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 namespace ClickOnceDMLib.Structs
 {
+    [DataContract]
     public class Ticket
     {
-        public string Name;
+        [DataMember]
+        public string FileName;
+
+        [DataMember]
+        public string SenderName;
+
+        [DataMember]
+        public string SenderAddress;
+
+        [DataMember]
+        public string Subject;
+
+        [DataMember]
+        public string Body;
+
+        private Source source;
+
+        public Source DecryptedSource
+        {
+            get
+            {
+                return this.source.DecryptedSource;
+            }
+        }
+
+        public Source EncryptedSource
+        {
+            get
+            {
+                return this.source.EncryptedSource;
+            }
+        }
+
+        [DataMember]
         public Source Source
         {
             get
             {
-                Source sourceInfo = new Source();
-                using (FileStream stream = new FileStream(PathInfo.CombinePath(PathInfo.Ticket, this.Name), FileMode.Open))
-                {
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Source));
-                    sourceInfo = (Source)serializer.ReadObject(stream);
-                }
-
-                return sourceInfo;
+                return this.source;
+            }
+            set
+            {
+                this.source = value;
             }
         }
     }

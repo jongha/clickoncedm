@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ClickOnceDMAdmin.Default"
-    MasterPageFile="~/Master/Main.Master" %>
+    MasterPageFile="~/Master/Main.Master" ValidateRequest="false" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="mainContent" runat="server">
     <div class="row">
@@ -12,8 +12,8 @@
             <asp:TextBox ID="txtSenderName" runat="server" CssClass="form-control" placeholder="Sender Name" />
         </div>
         <div class="form-group col-md-12 col-xs-12">
-            <label for="<%=txtSenderEmail.ClientID %>">Sender Email</label>
-            <asp:TextBox ID="txtSenderEmail" runat="server" CssClass="form-control" placeholder="Sender Email (user@domain)" />
+            <label for="<%=txtSenderAddress.ClientID %>">Sender Address</label>
+            <asp:TextBox ID="txtSenderAddress" runat="server" CssClass="form-control" placeholder="Sender Address (user@domain)" />
         </div>
         <div class="form-group col-md-12 col-xs-12">
             <label for="<%=rdoRecipeints.ClientID %>">Recipients</label>

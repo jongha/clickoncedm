@@ -17,15 +17,15 @@ namespace ClickOnceDMLib.Process
     {
         private const int BLOCKCOUNT = 500;
 
-        public void SaveQueue(List<Queue> queue)
+        public void SaveQueue(Queue queue)
         {
-            if (queue.Count > 0)
+            if (queue.RecipientData.Count() > 0)
             {
                 string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString("N") + ".queue";
 
                 using (FileStream stream = new FileStream(System.IO.Path.Combine(PathInfo.Queue, fileName), FileMode.CreateNew))
                 {
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Queue>));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Queue));
                     serializer.WriteObject(stream, queue);
                 }
             }
@@ -49,97 +49,122 @@ namespace ClickOnceDMLib.Process
 
         public void BuildQueueFromTicket(TicketProcess ticketProcess)
         {
-            List<Ticket> tickets = ticketProcess.GetTickets();
-
-            if (tickets.Count() == 0)
+            lock (typeof(QueueProcess))
             {
-                return;
-            }
+                List<Ticket> tickets = ticketProcess.GetTickets();
 
-
-            Ticket ticket = tickets[0];
-            Source source = ticket.Source;
-
-            try
-            {
-                source = source.DecryptedObject();
-                string value = source.Value;
-                string connectionString = source.ConnectionString;
-
-                if (source.Provider == "System.Data.SqlClient")
+                if (tickets.Count() == 0)
                 {
-                    Database db = new SqlDatabase(source.ConnectionString);
-                    DataSet ds = db.ExecuteDataSet(CommandType.Text, source.Value);
-                    if (ds != null && ds.Tables.Count > 0)
+                    return;
+                }
+
+
+                Ticket ticket = tickets[0];
+                Source source = ticket.Source;
+
+                try
+                {
+                    source = source.DecryptedSource;
+                    string value = source.Value;
+                    string connectionString = source.ConnectionString;
+
+                    if (source.Provider == "System.Data.SqlClient")
                     {
-                        QueueProcess queueProcess = new QueueProcess();
-                        List<Queue> queue = new List<Queue>();
-
-                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        Database db = new SqlDatabase(source.ConnectionString);
+                        DataSet ds = db.ExecuteDataSet(CommandType.Text, source.Value);
+                        if (ds != null && ds.Tables.Count > 0)
                         {
-                            string email = dr["email"].ToString();
-                            string name = dr["name"].ToString();
+                            QueueProcess queueProcess = new QueueProcess();
+                            List<Recipient> recipients = new List<Recipient>();
 
-                            try
+                            foreach (DataRow dr in ds.Tables[0].Rows)
                             {
-                                queue.Add(new Queue()
+                                string address = dr["address"].ToString();
+                                string name = dr["name"].ToString();
+
+                                try
                                 {
-                                    Name = name,
-                                    Email = email
+                                    recipients.Add(new Recipient(name, address));
+                                }
+                                catch (Exception e)
+                                {
+                                    LogProcess.WriteLog(e);
+                                    continue;
+                                }
+
+                                if (recipients.Count >= BLOCKCOUNT)
+                                {
+                                    queueProcess.SaveQueue(new Queue()
+                                    {
+                                        RecipientData = recipients.ToArray(),
+                                        TicketData = ticket
+                                    });
+                                    recipients = new List<Recipient>();
+                                }
+                            }
+
+
+                            if (recipients.Count() > 0)
+                            {
+                                queueProcess.SaveQueue(new Queue()
+                                {
+                                    RecipientData = recipients.ToArray(),
+                                    TicketData = ticket
                                 });
-                            }
-                            catch(Exception e)
-                            {
-                                LogProcess.WriteLog(e);
-                                continue;
-                            }
 
-                            if (queue.Count >= BLOCKCOUNT)
-                            {
-                                queueProcess.SaveQueue(queue);
-                                queue = new List<Queue>();
+                                recipients = new List<Recipient>();
                             }
-                        }
-
-                        if (queue.Count() > 0)
-                        {
-                            queueProcess.SaveQueue(queue);
-                            queue = new List<Queue>();
                         }
                     }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+                catch { }
+
+                ticketProcess.RemoveTicket(ticket);
+            }
+        }
+
+        public Queue GetQueue()
+        {
+            lock (typeof(QueueProcess))
+            {
+                IOrderedEnumerable<string> files = from file in Directory.GetFiles(PathInfo.Queue)
+                                                   orderby file ascending
+                                                   select file;
+
+                Queue queue = new Queue();
+
+                if (files.Count() > 0)
+                {
+                    string file = files.First();
+                    FileInfo fileInfo = new FileInfo(file);
+                    string queueName = System.IO.Path.GetFileName(file);
+
+                    if (fileInfo.Length > 0)
+                    {
+                        using (FileStream stream = new FileStream(PathInfo.CombinePath(PathInfo.Queue, queueName), FileMode.Open))
+                        {
+                            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Queue));
+                            queue = (Queue)serializer.ReadObject(stream);
+                        }
+                    }
+                    else
+                    {
+                        queue = null;
+                    }
+
+                    RemoveQueue(queueName);
                 }
                 else
                 {
-                    throw new NotSupportedException();
-                }
-            }
-            catch { }
-
-            ticketProcess.RemoveTicket(ticket);
-        }
-
-        public List<Queue> GetQueue()
-        {
-            IOrderedEnumerable<string> files = from file in Directory.GetFiles(PathInfo.Queue)
-                                               orderby file ascending
-                                               select file;
-
-            List<Queue> queues = new List<Queue>();
-
-            if (files.Count() > 0)
-            {
-                string queueName = System.IO.Path.GetFileName(files.First());
-
-                using (FileStream stream = new FileStream(PathInfo.CombinePath(PathInfo.Queue, queueName), FileMode.Open))
-                {
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<Queue>));
-                    queues = (List<Queue>)serializer.ReadObject(stream);
+                    queue = null;
                 }
 
-                RemoveQueue(queueName);
+                return queue;
             }
-
-            return queues.ToList<Queue>();
         }
     }
 }
