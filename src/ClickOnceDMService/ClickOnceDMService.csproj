@@ -79,7 +79,6 @@
     <ProjectReference Include="..\ClickOnceDMLib\ClickOnceDMLib.csproj">
       <Project>{cd6d9858-4a0a-42f4-8c31-2cc093054844}</Project>
       <Name>ClickOnceDMLib</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,40 +9,35 @@ namespace ClickOnceDMLib.Process
 {
     public class LogProcess
     {
-        public static void WriteErrorLog(Exception e)
+        private enum LOGTYPE { INFO, ERROR };
+
+        public static void Error(string message)
         {
-            WriteErrorLog(e.Message);
+            WriteLog(LOGTYPE.ERROR, message);
         }
 
-        public static void WriteLog(Exception e)
+        public static void Info(string message)
         {
-            WriteLog(e.Message);
+            WriteLog(LOGTYPE.INFO, message);
         }
 
-        public static void WriteLog(string message)
+        private static void WriteLog(LOGTYPE logType, string message)
         {
-            try
+            string file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH"));
+
+            if (logType == LOGTYPE.INFO)
             {
-                string file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMdd") + ".log");
-                using (StreamWriter writer = new StreamWriter(file, true))
-                {
-                    writer.WriteLine(string.Format("[{0}] {1}", DateTime.Now.ToString(), message));
-                }
+                file += ".log";
             }
-            catch { }
-        }
-
-        public static void WriteErrorLog(string message)
-        {
-            try
+            else if(logType == LOGTYPE.ERROR)
             {
-                string file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMdd") + ".err");
-                using (StreamWriter writer = new StreamWriter(file, true))
-                {
-                    writer.WriteLine(string.Format("[{0}] {1}", DateTime.Now.ToString(), message));
-                }
+                file += ".error";
             }
-            catch { }
+
+            using (StreamWriter writer = new StreamWriter(file, true))
+            {
+                writer.WriteLine(string.Format("{0} {1}", DateTime.Now.ToString("u"), message));
+            }
         }
     }
 }

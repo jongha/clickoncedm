@@ -20,6 +20,7 @@ namespace ClickOnceDMService
     {
         private static bool processing = false;
         private System.Timers.Timer timer;
+        private Object lockObj = new Object();
         
         private class SMTPServer
         {
@@ -27,9 +28,10 @@ namespace ClickOnceDMService
             public int Port = 25;
             public long Weight = 0;
 
-            public void AddWeight(long weight)
+            public void SetWeight(int weight)
             {
-                this.Weight += weight;
+                this.Weight += (long)weight;
+                this.Weight = Math.Min(this.Weight, 549755813888);
             }
         }
 
@@ -39,16 +41,18 @@ namespace ClickOnceDMService
         {
             InitializeComponent();
 
-            timer = new System.Timers.Timer(10000);
+            timer = new System.Timers.Timer(5000);
             timer.Enabled = false;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
         }
 
         private void InitSMTPServer()
         {
+            LogProcess.Info("Initialize SMTP Server Information");
+
             this.smtpServer = new List<SMTPServer>();
 
-            foreach (string server in ConfigurationManager.AppSettings["SMTPServer"].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string server in ConfigurationManager.AppSettings["SMTPServer"].Split(new char[] { ';', '|' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 string[] trimedServer = server.Trim().Split(new char[] { ':' });
                 smtpServer.Add(new SMTPServer()
@@ -62,12 +66,18 @@ namespace ClickOnceDMService
 
         protected override void OnStart(string[] args)
         {
+            LogProcess.Info("Start");
+
+            InitSMTPServer();
+
             timer.Enabled = true;
             timer.Start();
         }
 
         protected override void OnStop()
         {
+            LogProcess.Info("Stop");
+
             timer.Enabled = false;
             timer.Stop();
         }
@@ -75,7 +85,7 @@ namespace ClickOnceDMService
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (processing || this.smtpServer == null) { return; }
-            lock (typeof(Service))
+            lock (lockObj)
             {
                 processing = true;
             }
@@ -83,7 +93,12 @@ namespace ClickOnceDMService
             TicketProcess ticketProcess = new TicketProcess();
             QueueProcess queueProcess = new QueueProcess();
 
-            queueProcess.BuildQueueFromTicket(ticketProcess);
+            int blockSleep = Convert.ToInt32(ConfigurationManager.AppSettings["BlockSleep"]);
+
+            queueProcess.BuildQueueFromTicket(
+                ticketProcess, 
+                Convert.ToInt32(ConfigurationManager.AppSettings["BlockCount"])
+                );
 
             
             ClickOnceDMLib.Structs.Queue queue = queueProcess.GetQueue();
@@ -92,34 +107,48 @@ namespace ClickOnceDMService
             {
                 InitSMTPServer();
 
+                LogProcess.Info("In-Process Start");
+
                 foreach (Recipient recipient in queue.RecipientData)
                 {
                     long baseTick = DateTime.Now.Ticks;
 
                     var smtp = from s1 in this.smtpServer
-                            orderby s1.Weight ascending
-                            select s1;
+                               orderby s1.Weight ascending
+                               select s1;
 
                     SMTPServer serverInfo = smtp.First();
 
+                    SendMailProcess sendMailProcess = new SendMailProcess(serverInfo.Host, serverInfo.Port);
+
+                    MailAddress mailAddress = null;
+
                     try
                     {
-                        SendMailProcess sendMailProcess = new SendMailProcess(serverInfo.Host, serverInfo.Port);
-
-                        sendMailProcess.Send(
-                            new MailAddress(queue.TicketData.SenderAddress, queue.TicketData.SenderName),
-                            new MailAddress[] { new MailAddress(recipient.Address, recipient.Name) },
-                            queue.TicketData.Subject,
-                            queue.TicketData.Body
-                            );
+                        mailAddress = new MailAddress(recipient.Address.Trim(), recipient.Name);
                     }
                     catch (Exception ex)
                     {
-                        LogProcess.WriteErrorLog(ex);
+                        LogProcess.Error(ex.Message);
+                        continue;
                     }
 
-                    serverInfo.AddWeight(TimeSpan.FromTicks(DateTime.Now.Ticks - baseTick).Milliseconds);
+                    if (mailAddress != null)
+                    {
+                        sendMailProcess.Send(
+                            new MailAddress(queue.TicketData.SenderAddress, queue.TicketData.SenderName),
+                            new MailAddress[] { mailAddress },
+                            queue.TicketData.Subject,
+                            queue.TicketData.Body
+                            );
+
+                        serverInfo.SetWeight(TimeSpan.FromTicks(DateTime.Now.Ticks - baseTick).Milliseconds);
+                    }
                 }
+
+                LogProcess.Info("In-Process End");
+
+                Thread.Sleep(blockSleep);
             }
 
             processing = false;

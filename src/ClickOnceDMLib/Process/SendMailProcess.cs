@@ -24,29 +24,52 @@ namespace ClickOnceDMLib.Process
 
         public void Send(MailAddress sender, MailAddress[] recipients, string subject, string body)
         {
-            MailMessage message = new MailMessage()
+            try
             {
-                Priority = MailPriority.Normal,
-                BodyEncoding = Encoding.UTF8,
-                SubjectEncoding = Encoding.UTF8,
-                From = sender,
-                Subject = subject.Trim(),
-                Body = body,
-                IsBodyHtml = true,
-            };
+                MailMessage message = new MailMessage()
+                {
+                    Priority = MailPriority.Normal,
+                    BodyEncoding = Encoding.UTF8,
+                    SubjectEncoding = Encoding.UTF8,
+                    From = sender,
+                    Subject = subject.Trim(),
+                    Body = body,
+                    IsBodyHtml = true,
+                };
 
-            foreach (MailAddress recipient in recipients)
-            {
-                message.To.Add(recipient);
+                foreach (MailAddress recipient in recipients)
+                {
+                    message.To.Add(recipient);
+                }
+
+                SmtpClient smtp = new SmtpClient()
+                {
+                    Host = this.host,
+                    Port = this.port,
+
+                };
+
+                string logMessage = string.Join(";", (
+                    from recipient in recipients
+                    select recipient.Address + ", " + recipient.DisplayName + string.Format(", ({0}:{1})", this.host, this.port)
+                ).ToArray());
+
+                try
+                {
+                    smtp.Send(message);
+
+                    // write log
+                    LogProcess.Info(logMessage);
+                }
+                catch (Exception e)
+                {
+                    LogProcess.Error(logMessage + ", " + e.Message);
+                }
             }
-
-            SmtpClient smtp = new SmtpClient()
+            catch (Exception e)
             {
-                Host = this.host,
-                Port = this.port
-            };
-
-            smtp.Send(message);
+                LogProcess.Error(e.Message);
+            }
         }
     }
 }

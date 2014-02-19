@@ -11,52 +11,60 @@ namespace ClickOnceDMLib.Process
 {
     public class TicketProcess
     {
+        private Object lockObj = new Object();
+
         public List<Ticket> GetTickets()
         {
-            IOrderedEnumerable<string> files = from file in Directory.GetFiles(PathInfo.Ticket)
-                        orderby file ascending
-                        select file;
-
-            List<Ticket> tickets = new List<Ticket>();
-            foreach (string file in files)
+            lock (lockObj)
             {
-                Ticket ticket = null;
-                using (FileStream stream = new FileStream(PathInfo.CombinePath(PathInfo.Ticket, file), FileMode.Open))
+                IOrderedEnumerable<string> files = from file in Directory.GetFiles(PathInfo.Ticket)
+                                                   orderby file ascending
+                                                   select file;
+
+                List<Ticket> tickets = new List<Ticket>();
+                foreach (string file in files)
                 {
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Ticket));
-                    ticket = (Ticket)serializer.ReadObject(stream);
+                    Ticket ticket = null;
+                    using (FileStream stream = new FileStream(PathInfo.CombinePath(PathInfo.Ticket, file), FileMode.Open))
+                    {
+                        DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Ticket));
+                        ticket = (Ticket)serializer.ReadObject(stream);
+                    }
+
+                    if (ticket != null)
+                    {
+                        tickets.Add(ticket);
+                    }
                 }
 
-                if (ticket != null)
-                {
-                    tickets.Add(ticket);
-                }
+                return tickets;
             }
-
-            return tickets;
         }
-        
+
         public bool EmptyTicket()
         {
-            lock (typeof(TicketProcess))
+            try
             {
-                try
+                foreach (Ticket ticket in GetTickets())
                 {
-                    foreach (Ticket ticket in GetTickets())
+                    lock (lockObj)
                     {
                         File.Delete(System.IO.Path.Combine(PathInfo.Ticket, ticket.FileName));
                     }
-                    return true;
                 }
-                catch { }
-
-                return false;
+                return true;
             }
+            catch (Exception e)
+            {
+                LogProcess.Error(e.Message);
+            }
+
+            return false;
         }
 
         public bool RemoveTicket(Ticket ticket)
         {
-            lock (typeof(TicketProcess))
+            lock (lockObj)
             {
                 try
                 {
@@ -66,7 +74,10 @@ namespace ClickOnceDMLib.Process
                         );
                     return true;
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    LogProcess.Error(e.Message);
+                }
 
                 return false;
             }
@@ -74,23 +85,28 @@ namespace ClickOnceDMLib.Process
 
         public Ticket SaveTicket(Ticket ticket)
         {
-            ticket.FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString("N").Substring(0, 16) + ".ticket";
-
-            try
+            lock (lockObj)
             {
-                using (FileStream stream = new FileStream(System.IO.Path.Combine(PathInfo.Ticket, ticket.FileName), FileMode.CreateNew))
+                ticket.FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Guid.NewGuid().ToString("N").Substring(0, 16) + ".ticket";
+
+                try
                 {
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Ticket));
+                    using (FileStream stream = new FileStream(System.IO.Path.Combine(PathInfo.Ticket, ticket.FileName), FileMode.CreateNew))
+                    {
+                        DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Ticket));
 
-                    ticket.Source = ticket.Source.EncryptedSource;
-                    serializer.WriteObject(stream, ticket);
+                        ticket.Source = ticket.Source.EncryptedSource;
+                        serializer.WriteObject(stream, ticket);
+                    }
+
+                    return ticket;
                 }
+                catch (Exception e)
+                {
+                    LogProcess.Error(e.Message);
 
-                return ticket;
-            }
-            catch
-            {
-                return null;
+                    return null;
+                }
             }
         }
     }

@@ -22,7 +22,7 @@ namespace ClickOnceDMTest
             TicketProcess ticketProcess = new TicketProcess();
 
             QueueProcess queueProcess = new QueueProcess();
-            queueProcess.BuildQueueFromTicket(ticketProcess);
+            queueProcess.BuildQueueFromTicket(ticketProcess, 100);
         }
 
         [TestMethod]
