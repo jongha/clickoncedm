@@ -170,6 +170,7 @@ namespace ClickOnceDMLib.Process
             lock (lockObj)
             {
                 return from file in Directory.GetFiles(PathInfo.Queue)
+                       where DateTime.Compare(DateTime.Now.AddSeconds(-10), new FileInfo(file).LastWriteTime) > 0
                        orderby file ascending
                        select file;
             }

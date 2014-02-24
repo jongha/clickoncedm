@@ -16,7 +16,7 @@ namespace ClickOnceDMService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
 			{ 
-				new Service() 
+				new Service()
 			};
             ServiceBase.Run(ServicesToRun);
         }
