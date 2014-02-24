@@ -23,20 +23,26 @@ namespace ClickOnceDMLib.Process
 
         private static void WriteLog(LOGTYPE logType, string message)
         {
-            string file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH"));
+            string file = string.Empty;
+            switch (logType)
+            {
+                default:
+                case LOGTYPE.INFO:
+                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH")) + ".log";
+                    break;
 
-            if (logType == LOGTYPE.INFO)
-            {
-                file += ".log";
-            }
-            else if(logType == LOGTYPE.ERROR)
-            {
-                file += ".error";
+                case LOGTYPE.ERROR:
+                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMdd")) + ".error";
+                    break;
+
             }
 
-            using (StreamWriter writer = new StreamWriter(file, true))
+            if (!string.IsNullOrEmpty(file))
             {
-                writer.WriteLine(string.Format("{0} {1}", DateTime.Now.ToString("u"), message));
+                using (StreamWriter writer = new StreamWriter(file, true))
+                {
+                    writer.WriteLine(string.Format("{0} {1}", DateTime.Now.ToString("u"), message));
+                }
             }
         }
     }
