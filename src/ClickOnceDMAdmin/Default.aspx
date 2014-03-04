@@ -2,6 +2,10 @@
     MasterPageFile="~/Master/Main.Master" ValidateRequest="false" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="mainContent" runat="server">
+    <div class="page-header">
+        <h1>Send Mail</h1>
+    </div>
+
     <div class="row">
         <div class="form-group col-md-12 col-xs-12">
             <label for="<%=txtSubject.ClientID %>">Title</label>
@@ -26,18 +30,42 @@
                 <li id="tabPreview"><a href="#">Preview</a></li>
             </ul>
             <div class="mt5">
-                <div id="divHTML"><asp:TextBox ID="txtHtml" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="30" /></div>
-                <div id="divPreview" style="display: none"><iframe id="frmPreview" class="form-control" style="height: 600px"></iframe></div>
+                <div id="divHTML">
+                    <asp:TextBox ID="txtHtml" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="30" /></div>
+                <div id="divPreview" style="display: none">
+                    <iframe id="frmPreview" class="form-control" style="height: 600px"></iframe>
+                </div>
             </div>
         </div>
         <div class="text-center">
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" 
-                onclick="btnSave_Click" />
-            <asp:Button ID="btnCancel" runat="server" Text="Cancel" 
-                CssClass="btn btn-default" onclick="btnCancel_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="Send Mail" CssClass="btn btn-success"
+                OnClick="btnSave_Click" />
+            <asp:Button ID="btnCancel" runat="server" Text="Cancel"
+                CssClass="btn btn-warning" OnClick="btnCancel_Click" />
         </div>
     </div>
     <script type="text/javascript">
+        function checkSendValidation() {
+            if ($("#<%=txtSubject.ClientID%>").val().trim() === "") {
+                alert("The message must have title.");
+                $("#<%=txtSubject.ClientID%>").focus();
+
+            } else if ($("#<%=txtSenderName.ClientID%>").val().trim() === "") {
+                alert("The message must have sender name.");
+                $("#<%=txtSenderName.ClientID%>").focus();
+
+            } else if ($("#<%=txtSenderAddress.ClientID%>").val().trim() === "") {
+                alert("The message must have sender email address.");
+                $("#<%=txtSenderAddress.ClientID%>").focus();
+
+            } else {
+                if (confirm("Are you sure?")) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         $(document).ready(function () {
             $("#tabHTML").bind("click", function (e) {
                 e.preventDefault();

@@ -107,8 +107,9 @@
     <Content Include="Assets\js\uglify.js" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Logs.aspx" />
     <Content Include="Preview\Default.aspx" />
-    <Content Include="Tickets.aspx" />
+    <Content Include="Status.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -132,6 +133,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ControlAttributeHelper.cs" />
+    <Compile Include="Logs.aspx.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logs.aspx.designer.cs">
+      <DependentUpon>Logs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Master\Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,12 +155,12 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tickets.aspx.cs">
-      <DependentUpon>Tickets.aspx</DependentUpon>
+    <Compile Include="Status.aspx.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Tickets.aspx.designer.cs">
-      <DependentUpon>Tickets.aspx</DependentUpon>
+    <Compile Include="Status.aspx.designer.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +184,7 @@
     <None Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Preview\Web.config" />
+    <None Include="Properties\PublishProfiles\Filesystem.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClickOnceDMLib\ClickOnceDMLib.csproj">

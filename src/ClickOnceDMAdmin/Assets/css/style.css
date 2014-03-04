@@ -46,7 +46,7 @@ h6,
   /* Negative indent footer by its height */
   margin: 0 auto -60px;
   /* Pad bottom by footer height */
-  padding: 90px 0;
+  margin: 50px 0;
 }
 
 /* Set the fixed height of the footer here */
