@@ -38,15 +38,15 @@ namespace ClickOnceDMAdmin
                 rdoRecipeints.Items.Add(new ListItem(el.Name));
             }
 
-            if (rdoRecipeints.Items.Count > 0)
-            {
-                rdoRecipeints.Items[0].Selected = true;
-            }
-
             if (!Page.IsPostBack)
             {
-                ControlAttributeHelper.BindOnClickToFunction(btnSave, "return checkSendValidation()");
+                if (rdoRecipeints.Items.Count > 0)
+                {
+                    rdoRecipeints.Items[0].Selected = true;
+                }
             }
+
+            ControlAttributeHelper.BindOnClickToFunction(btnSave, "return checkSendValidation()");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
