@@ -20,9 +20,14 @@ namespace ClickOnceDMAdmin
 {
     public partial class Default : System.Web.UI.Page
     {
+        private int id = 0;
         private Dictionary<string, Source> sourceList = new Dictionary<string, Source>();
+        private ClickOnceDMLib.Data.History history = new ClickOnceDMLib.Data.History();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            id = string.IsNullOrEmpty(Request.QueryString["id"]) ? 0 : Convert.ToInt32(Request.QueryString["id"]);
+
             PluginRetrieverSection plugins = ConfigurationManager.GetSection("pluginSettings") as PluginRetrieverSection;
             foreach (PluginElement el in plugins.Plugins)
             {
@@ -43,6 +48,18 @@ namespace ClickOnceDMAdmin
                 if (rdoRecipeints.Items.Count > 0)
                 {
                     rdoRecipeints.Items[0].Selected = true;
+                }
+
+                if (id > 0)
+                {
+                    Ticket ticket = history.GetHistoryToTicket(this.id);
+                    if (ticket != null)
+                    {
+                        txtSenderAddress.Text = ticket.SenderAddress;
+                        txtSenderName.Text = ticket.SenderName;
+                        txtSubject.Text = ticket.Subject;
+                        txtHtml.Text = ticket.Body;
+                    }
                 }
             }
 
@@ -65,7 +82,14 @@ namespace ClickOnceDMAdmin
 
             ticketProcess.SaveTicket(ticket); // TODO: check result is success?
 
-            Response.Redirect(Request.RawUrl, false);
+            try
+            {
+                history.SetHistory(ticket);
+                history.DeleteHistory(100);
+            }
+            catch { }
+
+            Response.Redirect("~/Logs.aspx", false);
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

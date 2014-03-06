@@ -28,17 +28,16 @@
         <div class="container">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/Logs.aspx">Logs</a></li>
-                    <li><a href="/Status.aspx">Status</a></li>
+                    <li><a href="/"><asp:Literal runat="server" Text="<%$Resources:Label_Home%>" /></a></li>
+                    <li><a href="/Logs.aspx"><asp:Literal runat="server" Text="<%$Resources:Label_Logs%>" /></a></li>
+                    <li><a href="/Status.aspx"><asp:Literal runat="server" Text="<%$Resources:Label_Status%>" /></a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div id="wrap">
         <div class="container">
-            <asp:ContentPlaceHolder ID="mainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="mainContent" runat="server"></asp:ContentPlaceHolder>
         </div>
     </div>
     <div id="footer">

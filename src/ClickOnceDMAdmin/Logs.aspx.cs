@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +13,11 @@ namespace ClickOnceDMAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                rptLog.DataSource = new ClickOnceDMLib.Data.History().GetHistory();
+                rptLog.DataBind();
+            }
         }
     }
 }

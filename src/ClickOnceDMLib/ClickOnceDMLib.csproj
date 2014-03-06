@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\AES.cs" />
+    <Compile Include="Data\History.cs" />
     <Compile Include="Path\PathInfo.cs" />
     <Compile Include="Process\LogProcess.cs" />
     <Compile Include="Process\SendMailProcess.cs" />

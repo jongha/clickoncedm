@@ -17,8 +17,8 @@ namespace ClickOnceDMAdmin
         {
             if (!Page.IsPostBack)
             {
-                litTicketsCount.Text = Directory.GetFiles(PathInfo.Ticket).Count().ToString("###,###,###,###");
-                litQueueCount.Text = Directory.GetFiles(PathInfo.Queue).Count().ToString("###,###,###,###");
+                litTicketsCount.Text = Directory.GetFiles(PathInfo.Ticket).Count().ToString("###,###,###,##0");
+                litQueueCount.Text = Directory.GetFiles(PathInfo.Queue).Count().ToString("###,###,###,##0");
             }
         }
     }
