@@ -40,6 +40,15 @@ namespace ClickOnceDMAdmin {
         protected global::System.Web.UI.WebControls.TextBox txtSenderAddress;
         
         /// <summary>
+        /// txtRecipientAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRecipientAddress;
+        
+        /// <summary>
         /// rdoRecipeints control.
         /// </summary>
         /// <remarks>

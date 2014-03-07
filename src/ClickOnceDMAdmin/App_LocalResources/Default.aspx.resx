@@ -130,13 +130,13 @@
     <value>Preview</value>
   </data>
   <data name="Label_Recipients" xml:space="preserve">
-    <value>Recipients</value>
+    <value>Recipients Preset</value>
   </data>
   <data name="Label_SenderAddress" xml:space="preserve">
     <value>Sender Address</value>
   </data>
   <data name="Label_SenderAddressPlaceHolder" xml:space="preserve">
-    <value>Sender Address  (user@domain)</value>
+    <value>Sender Address (user@domain)</value>
   </data>
   <data name="Label_SenderName" xml:space="preserve">
     <value>Sender Name</value>
@@ -158,5 +158,14 @@
   </data>
   <data name="Message_SubjectEmpty" xml:space="preserve">
     <value>The message must have title.</value>
+  </data>
+  <data name="Label_RecipientAddress" xml:space="preserve">
+    <value>Recipient Address</value>
+  </data>
+  <data name="Label_RecipientAddressPlaceHolder" xml:space="preserve">
+    <value>Recipient Address (user1@domain;user2@domain,user3@domain)</value>
+  </data>
+  <data name="Message_RecipientAddressEmpty" xml:space="preserve">
+    <value>The message must have recipient email address.</value>
   </data>
 </root>

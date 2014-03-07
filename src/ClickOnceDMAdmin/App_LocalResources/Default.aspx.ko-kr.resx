@@ -130,13 +130,13 @@
     <value>미리보기</value>
   </data>
   <data name="Label_Recipients" xml:space="preserve">
-    <value>수신자</value>
+    <value>수신자 프리셋</value>
   </data>
   <data name="Label_SenderAddress" xml:space="preserve">
     <value>발신자 주소</value>
   </data>
   <data name="Label_SenderAddressPlaceHolder" xml:space="preserve">
-    <value>발신자 주소  (user@domain)</value>
+    <value>발신자 주소 (user@domain)</value>
   </data>
   <data name="Label_SenderName" xml:space="preserve">
     <value>발신자 이름</value>
@@ -158,5 +158,14 @@
   </data>
   <data name="Message_SubjectEmpty" xml:space="preserve">
     <value>제목을 입력해 주세요.</value>
+  </data>
+  <data name="Label_RecipientAddress" xml:space="preserve">
+    <value>수신자 주소</value>
+  </data>
+  <data name="Label_RecipientAddressPlaceHolder" xml:space="preserve">
+    <value>수신자 주소 (user1@domain;user2@domain,user3@domain)</value>
+  </data>
+  <data name="Message_RecipientAddressEmpty" xml:space="preserve">
+    <value>수신자 주소를 입력해 주세요.</value>
   </data>
 </root>

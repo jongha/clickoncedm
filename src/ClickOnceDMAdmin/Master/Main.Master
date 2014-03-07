@@ -28,9 +28,9 @@
         <div class="container">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/"><asp:Literal runat="server" Text="<%$Resources:Label_Home%>" /></a></li>
-                    <li><a href="/Logs.aspx"><asp:Literal runat="server" Text="<%$Resources:Label_Logs%>" /></a></li>
-                    <li><a href="/Status.aspx"><asp:Literal runat="server" Text="<%$Resources:Label_Status%>" /></a></li>
+                    <li><a href="/"><i class="glyphicon glyphicon-envelope"></i> <asp:Literal runat="server" Text="<%$Resources:Label_Home%>" /></a></li>
+                    <li><a href="/Logs.aspx"><i class="glyphicon glyphicon-floppy-disk"></i> <asp:Literal runat="server" Text="<%$Resources:Label_Logs%>" /></a></li>
+                    <li><a href="/Status.aspx"><i class="glyphicon glyphicon-search"></i> <asp:Literal runat="server" Text="<%$Resources:Label_Status%>" /></a></li>
                 </ul>
             </div>
         </div>

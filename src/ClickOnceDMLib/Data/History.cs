@@ -7,37 +7,47 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace ClickOnceDMLib.Data
 {
     public class History
     {
+        private string db;
         private const int DEFAULT_LIMIT = 50;
 
-        private Database GetDatabase()
+        public History()
         {
-            return new SqlDatabase(ConfigurationManager.ConnectionStrings["__LOCALSTORAGE__"].ToString());
+            this.db = ConfigurationManager.AppSettings["Database"];
+        }
+
+        public History(string db)
+        {
+            this.db = db;
+        }
+
+        private SQLiteDatabase GetDatabase()
+        {
+            return new SQLiteDatabase(this.db);
         }
 
         public Ticket GetHistoryToTicket(int id)
         {
             Ticket ticket = null;
 
-            DataSet ds = GetDatabase().ExecuteDataSet(
-                CommandType.Text,
+            DataTable dt = GetDatabase().GetDataTable(
                 "select Id, SenderName, SenderAddress, Subject, Body, Timestamp from History where Id = " + id.ToString()
                 );
 
-            if (ds != null && ds.Tables.Count > 0)
+            if (dt != null)
             {
-                DataTable dt = ds.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
                     ticket = new Ticket();
-                    ticket.SenderAddress = dr["SenderAddress"].ToString();
-                    ticket.SenderName = dr["SenderName"].ToString();
-                    ticket.Subject = dr["Subject"].ToString();
-                    ticket.Body = dr["Body"].ToString();
+                    ticket.SenderAddress = HttpContext.Current.Server.HtmlDecode(dr["SenderAddress"].ToString());
+                    ticket.SenderName = HttpContext.Current.Server.HtmlDecode(dr["SenderName"].ToString());
+                    ticket.Subject = HttpContext.Current.Server.HtmlDecode(dr["Subject"].ToString());
+                    ticket.Body = HttpContext.Current.Server.HtmlDecode(dr["Body"].ToString());
 
                     break;
                 }
@@ -46,37 +56,46 @@ namespace ClickOnceDMLib.Data
             return ticket;
         }
 
-        public DataSet GetHistory()
+        public DataTable GetHistory()
         {
             return this.GetHistory(DEFAULT_LIMIT);
         }
 
-        public DataSet GetHistory(int limit)
+        public DataTable GetHistory(int limit)
         {
             if (limit <= 0)
             {
                 limit = DEFAULT_LIMIT;
             }
 
-            return GetDatabase().ExecuteDataSet(
-                CommandType.Text,
-                "select top " + limit.ToString() + " Id, SenderName, SenderAddress, Subject, Body, Timestamp from History order by Id desc"
+            return GetDatabase().GetDataTable(
+                "select Id, SenderName, SenderAddress, Subject, Body, Timestamp from History order by Id desc limit " + limit.ToString()
                 );
         }
 
         public bool SetHistory(Ticket ticket)
         {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("SenderName", HttpContext.Current.Server.HtmlEncode(ticket.SenderName));
+            data.Add("SenderAddress", HttpContext.Current.Server.HtmlEncode(ticket.SenderAddress));
+            data.Add("Subject", HttpContext.Current.Server.HtmlEncode(ticket.Subject));
+            data.Add("Body", HttpContext.Current.Server.HtmlEncode(ticket.Body));
+            data.Add("Timestamp", DateTime.Now.Ticks.ToString());
+
+            return GetDatabase().Insert("History", data);
+        }
+
+        public bool DeleteHistory(int id)
+        {
             return GetDatabase().ExecuteNonQuery(
-                CommandType.Text,
-                string.Format("insert into History(SenderName, SenderAddress, Subject, Body) values('{0}', '{1}', '{2}', '{3}');", ticket.SenderName, ticket.SenderAddress, ticket.Subject, ticket.Body)
+                string.Format("delete from History where Id = {0}", id)
                 ) > 0;
         }
 
-        public bool DeleteHistory(int days)
+        public bool ClearHistory(int days)
         {
             return GetDatabase().ExecuteNonQuery(
-                CommandType.Text,
-                string.Format("delete from History where timestamp < (getutcdate() - {0})", days)
+                string.Format("delete from History where Timestamp < {0}", DateTime.Now.AddDays(-days).Ticks)
                 ) > 0;
         }
     }

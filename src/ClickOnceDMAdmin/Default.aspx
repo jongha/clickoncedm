@@ -3,7 +3,7 @@
 
 <asp:Content ID="content" ContentPlaceHolderID="mainContent" runat="server">
     <div class="page-header">
-        <h1><asp:Literal runat="server" Text="<%$Resources:Label_SendMail%>" /></h1>
+        <h1><i class="glyphicon glyphicon-envelope"></i> <asp:Literal runat="server" Text="<%$Resources:Label_SendMail%>" /></h1>
     </div>
 
     <div class="row">
@@ -19,9 +19,13 @@
             <label for="<%=txtSenderAddress.ClientID %>"><asp:Literal runat="server" Text="<%$Resources:Label_SenderAddress%>" /></label>
             <asp:TextBox ID="txtSenderAddress" runat="server" CssClass="form-control" placeholder="<%$Resources:Label_SenderAddressPlaceHolder%>" />
         </div>
-        <div class="form-group col-md-12 col-xs-12">
+        <div class="form-group col-md-12 col-xs-12 recipient-manual recipient-selection" data-type="manual">
+            <label for="<%=txtRecipientAddress.ClientID %>"><asp:Literal runat="server" Text="<%$Resources:Label_RecipientAddress%>" /></label>
+            <asp:TextBox ID="txtRecipientAddress" runat="server" CssClass="form-control" placeholder="<%$Resources:Label_RecipientAddressPlaceHolder%>" />
+        </div>
+        <div class="form-group col-md-12 col-xs-12 recipient-preset recipient-selection" data-type="preset">
             <label for="<%=rdoRecipeints.ClientID %>"><asp:Literal runat="server" Text="<%$Resources:Label_Recipients%>" /></label>
-            <asp:RadioButtonList runat="server" ID="rdoRecipeints" CssClass="radio" RepeatLayout="Flow"></asp:RadioButtonList>
+            <div><asp:RadioButtonList runat="server" ID="rdoRecipeints" RepeatLayout="Flow"></asp:RadioButtonList></div>
         </div>
         <div class="form-group col-md-12 col-xs-12">
             <label for="divHTML">Body</label>
@@ -57,6 +61,12 @@
             } else if ($("#<%=txtSenderAddress.ClientID%>").val().trim() === "") {
                 alert('<asp:Literal runat="server" Text="<%$Resources:Message_SenderAddressEmpty%>" />');
                 $("#<%=txtSenderAddress.ClientID%>").focus();
+
+            } else if ($("#<%=txtRecipientAddress.ClientID%>").val().trim() === "" &&
+                $(".recipient-preset").find("input:checked").length == 0) {
+
+                alert('<asp:Literal runat="server" Text="<%$Resources:Message_RecipientAddressEmpty%>" />');
+                $("#<%=txtRecipientAddress.ClientID%>").click().focus();
 
             } else {
                 if (confirm('<asp:Literal runat="server" Text="<%$Resources:Message_SendMailConfirm%>" />')) {
@@ -101,6 +111,28 @@
                     dataType: "html"
                 });
             });
+
+            var selectRecipient = function (type) {
+                if (type === "preset") {
+                    $(".recipient-preset").fadeTo("fast", 1);
+                    $(".recipient-manual").fadeTo("fast", 0.3);
+                } else {
+                    $(".recipient-preset").fadeTo("fast", 0.3).find("input").prop("checked", false);
+                    $(".recipient-manual").fadeTo("fast", 1);
+                }
+
+                if (!!!this.binded) {
+                    $(".recipient-selection").bind("click", function () {
+                        selectRecipient($(this).data("type"));
+                    });
+
+                    this.binded = true;
+                }
+            };
+
+            selectRecipient();
+
+            $("ul.nav.navbar-nav li:nth-child(1)").addClass("active");
         });
     </script>
 </asp:Content>

@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
   <data name="Label_Logs" xml:space="preserve">
     <value>로그</value>
+  </data>
+  <data name="Label_SenderAddress" xml:space="preserve">
+    <value>발신자 주소</value>
+  </data>
+  <data name="Label_SenderName" xml:space="preserve">
+    <value>발신자 이름</value>
+  </data>
+  <data name="Label_Subject" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="Label_Timestamp" xml:space="preserve">
+    <value>등록 시간</value>
   </data>
 </root>

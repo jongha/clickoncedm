@@ -128,3 +128,7 @@ h6,
 	font-size: 14px;
 	line-height: 1.2em;
 }
+
+.margined-radio-list input {
+    margin-left: 10px;
+}

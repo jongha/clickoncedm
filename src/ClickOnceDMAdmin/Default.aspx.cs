@@ -45,11 +45,6 @@ namespace ClickOnceDMAdmin
 
             if (!Page.IsPostBack)
             {
-                if (rdoRecipeints.Items.Count > 0)
-                {
-                    rdoRecipeints.Items[0].Selected = true;
-                }
-
                 if (id > 0)
                 {
                     Ticket ticket = history.GetHistoryToTicket(this.id);
@@ -68,13 +63,31 @@ namespace ClickOnceDMAdmin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            string recipient = rdoRecipeints.SelectedValue;
-
             Ticket ticket = new Ticket();
 
             ticket.SenderName = txtSenderName.Text.Trim();
             ticket.SenderAddress = txtSenderAddress.Text.Trim();
-            ticket.Source = sourceList[recipient];
+
+            if (rdoRecipeints.SelectedIndex >= 0)
+            {
+                ticket.Source = sourceList[rdoRecipeints.SelectedValue];
+            }
+            else
+            {
+                List<string> recipients = new List<string>();
+                foreach (string r in txtRecipientAddress.Text.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    recipients.Add(r.Trim());
+                }
+
+                ticket.Source = new Source
+                {
+                    Provider = "System.String[]",
+                    Value = string.Join(";", recipients),
+                    ConnectionString = "NODATA"
+                };
+            }
+
             ticket.Subject = txtSubject.Text.Trim();
             ticket.Body = txtHtml.Text;
             
@@ -85,7 +98,7 @@ namespace ClickOnceDMAdmin
             try
             {
                 history.SetHistory(ticket);
-                history.DeleteHistory(100);
+                history.ClearHistory(100);
             }
             catch { }
 

@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Label_Logs" xml:space="preserve">
     <value>Logs</value>
+  </data>
+  <data name="Label_SenderAddress" xml:space="preserve">
+    <value>Sender Address</value>
+  </data>
+  <data name="Label_SenderName" xml:space="preserve">
+    <value>Sender Name</value>
+  </data>
+  <data name="Label_Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Label_Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
   </data>
 </root>

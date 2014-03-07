@@ -2,7 +2,7 @@
 
 <asp:Content ID="content" ContentPlaceHolderID="mainContent" runat="server">
     <div class="page-header">
-        <h1><asp:Literal runat="server" Text="<%$Resources:Label_Status%>" /></h1>
+        <h1><i class="glyphicon glyphicon-search"></i> <asp:Literal runat="server" Text="<%$Resources:Label_Status%>" /></h1>
     </div>
 
     <h3><asp:Literal runat="server" Text="<%$Resources:Label_TicketCount%>" /></h3>
@@ -16,4 +16,9 @@
         <strong>
             <asp:Literal ID="litQueueCount" runat="server"></asp:Literal></strong>
     </div>
+    <script>
+        $(document).ready(function () {
+            $("ul.nav.navbar-nav li:nth-child(3)").addClass("active");
+        });
+    </script>
 </asp:Content>

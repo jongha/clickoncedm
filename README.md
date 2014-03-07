@@ -8,6 +8,6 @@ ClickOnceDM is a mass email sending system. This program is written by C# on Mic
 
 http://www.microsoft.com/en-us/download/details.aspx?id=15104
 
-### ADO.NET 2.0 Provider for SQLite
+### System.Data.SQLite
 
-http://sourceforge.net/projects/sqlite-dotnet2/
+http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki

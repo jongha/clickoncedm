@@ -35,7 +35,11 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\Libs\System.Data.SQLite\bin\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Crypto\AES.cs" />
     <Compile Include="Data\History.cs" />
+    <Compile Include="Data\SQLiteDatabase.cs" />
     <Compile Include="Path\PathInfo.cs" />
     <Compile Include="Process\LogProcess.cs" />
     <Compile Include="Process\SendMailProcess.cs" />
