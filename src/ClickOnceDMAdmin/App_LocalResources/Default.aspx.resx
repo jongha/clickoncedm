@@ -136,7 +136,7 @@
     <value>Sender Address</value>
   </data>
   <data name="Label_SenderAddressPlaceHolder" xml:space="preserve">
-    <value>Sender Address (user@domain)</value>
+    <value>Sender Address (no-reply@domain)</value>
   </data>
   <data name="Label_SenderName" xml:space="preserve">
     <value>Sender Name</value>
@@ -167,5 +167,8 @@
   </data>
   <data name="Message_RecipientAddressEmpty" xml:space="preserve">
     <value>The message must have recipient email address.</value>
+  </data>
+  <data name="Label_SenderAddressDesc" xml:space="preserve">
+    <value>Warning, Mails can be sent back to Sender Address.</value>
   </data>
 </root>

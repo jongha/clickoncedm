@@ -18,6 +18,7 @@
         <div class="form-group col-md-12 col-xs-12">
             <label for="<%=txtSenderAddress.ClientID %>"><asp:Literal runat="server" Text="<%$Resources:Label_SenderAddress%>" /></label>
             <asp:TextBox ID="txtSenderAddress" runat="server" CssClass="form-control" placeholder="<%$Resources:Label_SenderAddressPlaceHolder%>" />
+            <p class="text-danger"><i class="glyphicon glyphicon-warning-sign"></i> <asp:Literal runat="server" Text="<%$Resources:Label_SenderAddressDesc%>" /></p>
         </div>
         <div class="form-group col-md-12 col-xs-12 recipient-manual recipient-selection" data-type="manual">
             <label for="<%=txtRecipientAddress.ClientID %>"><asp:Literal runat="server" Text="<%$Resources:Label_RecipientAddress%>" /></label>

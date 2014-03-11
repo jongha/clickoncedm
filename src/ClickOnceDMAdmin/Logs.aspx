@@ -1,10 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Logs.aspx.cs" Inherits="ClickOnceDMAdmin.Logs" MasterPageFile="~/Master/Main.Master" UICulture="auto" %>
-
 <asp:Content ID="content" ContentPlaceHolderID="mainContent" runat="server">
     <div class="page-header">
         <h1><i class="glyphicon glyphicon-floppy-disk"></i> <asp:Literal runat="server" Text="<%$Resources:Label_Logs%>" /></h1>
     </div>
-
     <div class="row">
         <table class="table table-striped">
             <thead>
