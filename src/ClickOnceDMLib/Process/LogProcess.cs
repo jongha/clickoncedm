@@ -11,9 +11,18 @@ namespace ClickOnceDMLib.Process
     {
         private enum LOGTYPE { INFO, ERROR };
 
-        public static void Error(string message)
+        public static void Error(Exception e, string message)
         {
-            WriteLog(LOGTYPE.ERROR, message);
+            WriteLog(LOGTYPE.ERROR, 
+                "\r\nMessage: " + e.Message +
+                "\r\nStackTrace: " + e.StackTrace + 
+                (!string.IsNullOrEmpty(message) ? "\r\nCustom Message: " + message : string.Empty)
+                );
+        }
+
+        public static void Error(Exception e)
+        {
+            Error(e, string.Empty);
         }
 
         public static void Info(string message)

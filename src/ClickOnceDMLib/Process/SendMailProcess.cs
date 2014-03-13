@@ -63,12 +63,12 @@ namespace ClickOnceDMLib.Process
                 }
                 catch (Exception e)
                 {
-                    LogProcess.Error(logMessage + ", " + e.Message);
+                    LogProcess.Error(e, logMessage);
                 }
             }
             catch (Exception e)
             {
-                LogProcess.Error(e.Message);
+                LogProcess.Error(e);
             }
         }
     }

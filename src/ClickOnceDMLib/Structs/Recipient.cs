@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickOnceDMLib.Process;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -26,7 +27,11 @@ namespace ClickOnceDMLib.Structs
             }
             else
             {
-                throw new FormatException();
+                Exception e = new FormatException();
+
+                LogProcess.Error(e, address);
+
+                throw e;
             }
         }
     }

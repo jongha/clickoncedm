@@ -57,7 +57,7 @@ namespace ClickOnceDMLib.Process
             }
             catch (Exception e)
             {
-                LogProcess.Error(e.Message);
+                LogProcess.Error(e);
             }
 
             return false;
@@ -77,7 +77,7 @@ namespace ClickOnceDMLib.Process
                 }
                 catch (Exception e)
                 {
-                    LogProcess.Error(e.Message);
+                    LogProcess.Error(e);
                 }
 
                 return false;
@@ -104,7 +104,7 @@ namespace ClickOnceDMLib.Process
                 }
                 catch (Exception e)
                 {
-                    LogProcess.Error(e.Message);
+                    LogProcess.Error(e);
 
                     return null;
                 }

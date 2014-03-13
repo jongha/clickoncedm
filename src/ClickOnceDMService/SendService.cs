@@ -92,7 +92,7 @@ namespace ClickOnceDMService
                     }
                     catch (Exception ex)
                     {
-                        LogProcess.Error(ex.Message);
+                        LogProcess.Error(ex);
                         continue;
                     }
 

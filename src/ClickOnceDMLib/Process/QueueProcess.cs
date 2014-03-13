@@ -97,7 +97,7 @@ namespace ClickOnceDMLib.Process
                             }
                             catch (Exception e)
                             {
-                                LogProcess.Error(address + ", " + name + ", " + e.Message);
+                                LogProcess.Error(e, address + ", " + name);
                                 continue;
                             }
 
@@ -132,7 +132,8 @@ namespace ClickOnceDMLib.Process
 
                     foreach (string recipient in source.Value.Trim().Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
                     {
-                        recipients.Add(new Recipient(recipient, recipient));
+                        string address = recipient.Trim();
+                        recipients.Add(new Recipient(address, address));
 
                         if (recipients.Count >= blobkCount)
                         {
@@ -159,7 +160,7 @@ namespace ClickOnceDMLib.Process
             }
             catch (Exception e)
             {
-                LogProcess.Error(e.Message);
+                LogProcess.Error(e);
             }
 
             ticketProcess.RemoveTicket(ticket);
@@ -199,7 +200,7 @@ namespace ClickOnceDMLib.Process
                         }
                         catch (Exception e)
                         {
-                            LogProcess.Error(e.Message);
+                            LogProcess.Error(e);
                         }
                     }
                 }
