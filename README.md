@@ -6,11 +6,11 @@ ClickOnceDM is a mass email sending system. This program is written by C# on Mic
 
 ### Microsoft Enterprise Library 5.0
 
-http://www.microsoft.com/en-us/download/details.aspx?id=15104
+[Microsoft Enterprise Library 5.0 Download](http://www.microsoft.com/en-us/download/details.aspx?id=15104)
 
 ### System.Data.SQLite
 
-http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki
+[System.Data.SQLite Download](http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki)
 
 ## Composition
 
@@ -34,7 +34,7 @@ This project has two sub-projects. These two projects based on Microsoft .NET Fr
 * SMTPServer: SMTP Server and Post list. It can be multiple SMTP Servers separated by semicolon(;).
 * Workspace: Workspace is managed directory by this application. It can be contained queue file, success and error logs.
 * BlockCount: Sending count per one program loop.
-* BlockSleep: Delay time after sending.
+* BlockSleep: Delay time after sending. (Millisecond)
 
 ### Web.config in ClickOnceDMAdmin
 
