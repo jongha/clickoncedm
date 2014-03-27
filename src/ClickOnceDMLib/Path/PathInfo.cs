@@ -62,5 +62,15 @@ namespace ClickOnceDMLib.Path
                 return EnsurePath("Log");
             }
         }
+
+        public static string CurrentLog
+        {
+            get
+            {
+                string logDir = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMdd"));
+
+                return EnsurePath(logDir);
+            }
+        }
     }
 }

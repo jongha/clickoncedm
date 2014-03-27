@@ -126,6 +126,9 @@
   <data name="Label_Logs" xml:space="preserve">
     <value>로그</value>
   </data>
+  <data name="Label_Statistics" xml:space="preserve">
+    <value>통계</value>
+  </data>
   <data name="Label_Status" xml:space="preserve">
     <value>상태</value>
   </data>

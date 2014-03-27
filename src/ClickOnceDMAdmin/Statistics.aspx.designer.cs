@@ -10,42 +10,42 @@
 namespace ClickOnceDMAdmin {
     
     
-    public partial class Status {
+    public partial class Statistics {
         
         /// <summary>
-        /// litTicketsCount control.
+        /// txtStartTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTicketsCount;
+        protected global::System.Web.UI.WebControls.TextBox txtStartTime;
         
         /// <summary>
-        /// litQueueCount control.
+        /// txtEndTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litQueueCount;
+        protected global::System.Web.UI.WebControls.TextBox txtEndTime;
         
         /// <summary>
-        /// litLogCount control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litLogCount;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// btnClearLog control.
+        /// rptStatistics control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClearLog;
+        protected global::System.Web.UI.WebControls.Repeater rptStatistics;
     }
 }

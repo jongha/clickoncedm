@@ -117,22 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button_ClearLogs" xml:space="preserve">
-    <value>Clear Logs</value>
+  <data name="Button_Search" xml:space="preserve">
+    <value>검색</value>
   </data>
-  <data name="Label_LogCount" xml:space="preserve">
-    <value>Log Count</value>
+  <data name="Label_EndDate" xml:space="preserve">
+    <value>종료일</value>
   </data>
-  <data name="Label_QueueCount" xml:space="preserve">
-    <value>Queue Count</value>
+  <data name="Label_Error" xml:space="preserve">
+    <value>실패</value>
   </data>
-  <data name="Label_Status" xml:space="preserve">
-    <value>Status</value>
+  <data name="Label_StartDate" xml:space="preserve">
+    <value>시작일</value>
   </data>
-  <data name="Label_TicketCount" xml:space="preserve">
-    <value>Ticket Count</value>
+  <data name="Label_Statistics" xml:space="preserve">
+    <value>통계</value>
   </data>
-  <data name="Message_ClearLogsConfirm" xml:space="preserve">
-    <value>Are you sure you want to permanently remove logs?</value>
+  <data name="Label_Success" xml:space="preserve">
+    <value>성공</value>
+  </data>
+  <data name="Label_Total" xml:space="preserve">
+    <value>전체 (성공+실패)</value>
   </data>
 </root>

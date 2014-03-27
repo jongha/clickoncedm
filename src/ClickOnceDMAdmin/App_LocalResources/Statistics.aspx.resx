@@ -117,22 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button_ClearLogs" xml:space="preserve">
-    <value>Clear Logs</value>
+  <data name="Button_Search" xml:space="preserve">
+    <value>Search</value>
   </data>
-  <data name="Label_LogCount" xml:space="preserve">
-    <value>Log Count</value>
+  <data name="Label_EndDate" xml:space="preserve">
+    <value>EndDate</value>
   </data>
-  <data name="Label_QueueCount" xml:space="preserve">
-    <value>Queue Count</value>
+  <data name="Label_Error" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="Label_Status" xml:space="preserve">
-    <value>Status</value>
+  <data name="Label_StartDate" xml:space="preserve">
+    <value>StartDate</value>
   </data>
-  <data name="Label_TicketCount" xml:space="preserve">
-    <value>Ticket Count</value>
+  <data name="Label_Statistics" xml:space="preserve">
+    <value>Statistics</value>
   </data>
-  <data name="Message_ClearLogsConfirm" xml:space="preserve">
-    <value>Are you sure you want to permanently remove logs?</value>
+  <data name="Label_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Label_Total" xml:space="preserve">
+    <value>Total (Success + Error)</value>
   </data>
 </root>

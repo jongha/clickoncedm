@@ -33,10 +33,12 @@
   <ItemGroup>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\Libs\System.Data.SQLite\bin\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.92.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.92.0\lib\net40\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -50,7 +52,9 @@
     <Compile Include="Crypto\AES.cs" />
     <Compile Include="Data\History.cs" />
     <Compile Include="Data\SQLiteDatabase.cs" />
+    <Compile Include="Data\Statistics.cs" />
     <Compile Include="Path\PathInfo.cs" />
+    <Compile Include="Process\LogCounterProcess.cs" />
     <Compile Include="Process\LogProcess.cs" />
     <Compile Include="Process\SendMailProcess.cs" />
     <Compile Include="Process\TicketProcess.cs" />
@@ -60,6 +64,20 @@
     <Compile Include="Structs\Recipient.cs" />
     <Compile Include="Structs\Source.cs" />
     <Compile Include="Structs\Ticket.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -59,16 +59,16 @@ namespace ClickOnceDMLib.Process
                     smtp.Send(message);
 
                     // write log
-                    LogProcess.Info(logMessage);
+                    LogCounterProcess.Success(logMessage);
                 }
                 catch (Exception e)
                 {
-                    LogProcess.Error(e, logMessage);
+                    LogCounterProcess.Error(e, logMessage);
                 }
             }
             catch (Exception e)
             {
-                LogProcess.Error(e);
+                LogCounterProcess.Error(e);
             }
         }
     }

@@ -95,7 +95,7 @@ namespace ClickOnceDMLib.Data
         public bool ClearHistory(int days)
         {
             return GetDatabase().ExecuteNonQuery(
-                string.Format("delete from History where Timestamp < {0}", DateTime.Now.AddDays(-days).Ticks)
+                string.Format("delete from History where Timestamp < '{0}'", DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd HH:mm:ss"))
                 ) > 0;
         }
     }

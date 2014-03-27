@@ -9,7 +9,7 @@ namespace ClickOnceDMLib.Process
 {
     public class LogProcess
     {
-        private enum LOGTYPE { INFO, ERROR };
+        public enum LOGTYPE { INFO, SUCCESS, ERROR };
 
         public static void Error(Exception e, string message)
         {
@@ -30,20 +30,20 @@ namespace ClickOnceDMLib.Process
             WriteLog(LOGTYPE.INFO, message);
         }
 
-        private static void WriteLog(LOGTYPE logType, string message)
+        public static void WriteLog(LOGTYPE logType, string message)
         {
             string file = string.Empty;
             switch (logType)
             {
                 default:
                 case LOGTYPE.INFO:
-                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH")) + ".log";
+                case LOGTYPE.SUCCESS:
+                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH")) + "-access.log";
                     break;
 
                 case LOGTYPE.ERROR:
-                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMdd")) + ".error";
+                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH")) + "-error.log";
                     break;
-
             }
 
             if (!string.IsNullOrEmpty(file))
