@@ -1,5 +1,7 @@
-﻿using ClickOnceDMLib.Process;
+﻿using ClickOnceDMLib.Interfaces;
+using ClickOnceDMLib.Process;
 using ClickOnceDMLib.Structs;
+using ClickOnceDMLib.Utils;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -72,6 +74,8 @@ namespace ClickOnceDMService
 
                 LogProcess.Info("In-Process Start");
 
+                ILog log = new LogCounter(); // log interface
+
                 foreach (Recipient recipient in queue.RecipientData)
                 {
                     long baseTick = DateTime.Now.Ticks;
@@ -82,7 +86,9 @@ namespace ClickOnceDMService
 
                     SMTPServer serverInfo = smtp.First();
 
-                    SendMailProcess sendMailProcess = new SendMailProcess(serverInfo.Host, serverInfo.Port);
+                    SendMailProcess sendMailProcess = new SendMailProcess(log);
+
+                    sendMailProcess.SetHostAndPort(serverInfo.Host, serverInfo.Port);
 
                     MailAddress mailAddress = null;
 
@@ -108,6 +114,8 @@ namespace ClickOnceDMService
                         serverInfo.SetWeight(TimeSpan.FromTicks(DateTime.Now.Ticks - baseTick).Milliseconds);
                     }
                 }
+
+                log.Flush(); // write log
 
                 LogProcess.Info("In-Process End");
 

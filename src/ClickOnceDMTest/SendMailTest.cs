@@ -1,5 +1,7 @@
-﻿using ClickOnceDMLib.Process;
+﻿using ClickOnceDMLib.Interfaces;
+using ClickOnceDMLib.Process;
 using ClickOnceDMLib.Structs;
+using ClickOnceDMLib.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -19,7 +21,11 @@ namespace ClickOnceDMTest
             QueueTest queueTest = new QueueTest();
             queueTest.BuildQueue();
 
-            SendMailProcess sendMailProcess = new SendMailProcess("smtp.hostname.com", 25);
+            ILog log = new LogCounter();
+
+            SendMailProcess sendMailProcess = new SendMailProcess(log);
+
+            sendMailProcess.SetHostAndPort("smtp.hostname.com", 25);
 
             QueueProcess queueProcess = new QueueProcess();
             Queue queue = queueProcess.GetQueue();

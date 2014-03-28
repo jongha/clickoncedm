@@ -12,6 +12,8 @@ ClickOnceDM is a mass email sending system. This program is written by C# on Mic
 
 [System.Data.SQLite Download](http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki)
 
+or Use NuGet Package.
+
 ## Composition
 
 This project has two sub-projects. These two projects based on Microsoft .NET Framework and written using C#. It is ClickOnceDMAdmin and ClickOnceDMService. ClickOnceDMAdmin is web application that can manage mail sending, log and status. ClickOnceDMService is service application that can install in Windows OS. You can install this service using Installutil.exe. (see more http://msdn.microsoft.com/en-us/library/50614e95(v=vs.110).aspx)

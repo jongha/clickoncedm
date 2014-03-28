@@ -10,42 +10,60 @@
 namespace ClickOnceDMAdmin {
     
     
-    public partial class Status {
+    public partial class Statistics {
         
         /// <summary>
-        /// litTicketsCount control.
+        /// txtQuery control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTicketsCount;
+        protected global::System.Web.UI.WebControls.TextBox txtQuery;
         
         /// <summary>
-        /// litQueueCount control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litQueueCount;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// litLogCount control.
+        /// litSuccess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litLogCount;
+        protected global::System.Web.UI.WebControls.Literal litSuccess;
         
         /// <summary>
-        /// btnClearLog control.
+        /// litError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClearLog;
+        protected global::System.Web.UI.WebControls.Literal litError;
+        
+        /// <summary>
+        /// litTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTotal;
+        
+        /// <summary>
+        /// rptStatistics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptStatistics;
     }
 }

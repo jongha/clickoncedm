@@ -126,6 +126,9 @@
   <data name="Label_Logs" xml:space="preserve">
     <value>Logs</value>
   </data>
+  <data name="Label_Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
   <data name="Label_Status" xml:space="preserve">
     <value>Status</value>
   </data>
