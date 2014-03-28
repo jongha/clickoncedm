@@ -54,16 +54,17 @@
     <Compile Include="Data\SQLiteDatabase.cs" />
     <Compile Include="Data\Statistics.cs" />
     <Compile Include="Path\PathInfo.cs" />
-    <Compile Include="Process\LogCounterProcess.cs" />
     <Compile Include="Process\LogProcess.cs" />
     <Compile Include="Process\SendMailProcess.cs" />
     <Compile Include="Process\TicketProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Process\QueueProcess.cs" />
+    <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="Structs\Queue.cs" />
     <Compile Include="Structs\Recipient.cs" />
     <Compile Include="Structs\Source.cs" />
     <Compile Include="Structs\Ticket.cs" />
+    <Compile Include="Utils\LogCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

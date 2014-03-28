@@ -117,23 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Button_Search" xml:space="preserve">
     <value>Search</value>
-  </data>
-  <data name="Label_EndDate" xml:space="preserve">
-    <value>EndDate</value>
   </data>
   <data name="Label_Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="Label_StartDate" xml:space="preserve">
-    <value>StartDate</value>
+  <data name="Label_Query" xml:space="preserve">
+    <value>Query</value>
+  </data>
+  <data name="Label_QueryDesc" xml:space="preserve">
+    <value>Please insert a search query and click search button.</value>
   </data>
   <data name="Label_Statistics" xml:space="preserve">
     <value>Statistics</value>
   </data>
+  <data name="Label_Subject" xml:space="preserve">
+    <value>Title</value>
+  </data>
   <data name="Label_Success" xml:space="preserve">
     <value>Success</value>
+  </data>
+  <data name="Label_Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
   </data>
   <data name="Label_Total" xml:space="preserve">
     <value>Total (Success + Error)</value>

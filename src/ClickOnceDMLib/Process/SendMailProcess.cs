@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClickOnceDMLib.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -11,12 +12,14 @@ namespace ClickOnceDMLib.Process
     {
         private string host = "localhost";
         private int port = 25;
+        private ILog log = null;
 
-        public SendMailProcess()
+        public SendMailProcess(ILog log)
         {
+            this.log = log;
         }
 
-        public SendMailProcess(string host, int port)
+        public void SetHostAndPort(string host, int port)
         {
             this.host = host;
             this.port = port;
@@ -24,6 +27,8 @@ namespace ClickOnceDMLib.Process
 
         public void Send(MailAddress sender, MailAddress[] recipients, string subject, string body)
         {
+            subject = subject.Trim();
+
             try
             {
                 MailMessage message = new MailMessage()
@@ -32,7 +37,7 @@ namespace ClickOnceDMLib.Process
                     BodyEncoding = Encoding.UTF8,
                     SubjectEncoding = Encoding.UTF8,
                     From = sender,
-                    Subject = subject.Trim(),
+                    Subject = subject,
                     Body = body,
                     IsBodyHtml = true,
                 };
@@ -46,7 +51,6 @@ namespace ClickOnceDMLib.Process
                 {
                     Host = this.host,
                     Port = this.port,
-
                 };
 
                 string logMessage = string.Join(";", (
@@ -59,16 +63,16 @@ namespace ClickOnceDMLib.Process
                     smtp.Send(message);
 
                     // write log
-                    LogCounterProcess.Success(logMessage);
+                    this.log.Success(subject, logMessage);
                 }
                 catch (Exception e)
                 {
-                    LogCounterProcess.Error(e, logMessage);
+                    this.log.Error(subject, e, logMessage);
                 }
             }
             catch (Exception e)
             {
-                LogCounterProcess.Error(e);
+                this.log.Error(subject, e);
             }
         }
     }

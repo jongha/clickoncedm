@@ -28,22 +28,57 @@ namespace ClickOnceDMLib.Data
             return new SQLiteDatabase(this.db);
         }
 
-        public DataTable GetStatistics(DateTime start, DateTime end)
+        public DataTable GetSearchStatistics(string subject)
         {
             return GetDatabase().GetDataTable(
-                string.Format("select Success, Error from Statistics where Timestamp between '{0}' and '{1}' order by Timestamp desc", 
-                start.ToString("yyyy-MM-dd HH:mm:ss"), 
-                end.ToString("yyyy-MM-dd HH:mm:ss"))
+                string.Format("select Subject, Success, Error, Timestamp from Statistics where Subject like '%{0}%'", 
+                subject)
                 );
         }
 
-        public bool SetStatistics(long success, long error)
+        private DataTable GetStatistics(string subject)
         {
-            Dictionary<string, string> data = new Dictionary<string, string>();
-            data.Add("Success", success.ToString());
-            data.Add("Error", error.ToString());
+            return GetDatabase().GetDataTable(
+                string.Format("select Subject, Success, Error, Timestamp from Statistics where Subject = '{0}'", subject)
+                );
+        }
 
-            return GetDatabase().Insert("Statistics", data);
+        public bool SetStatistics(string subject, long success, long error)
+        {
+            DataTable dt = this.GetStatistics(subject);
+            if (dt.Rows.Count > 0)
+            {
+                long successSum = success, errorSum = error;
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    successSum += Convert.ToInt64(dr["Success"]);
+                    errorSum += Convert.ToInt64(dr["Error"]);
+                }
+
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                data.Add("Subject", subject.ToString());
+                data.Add("Success", successSum.ToString());
+                data.Add("Error", errorSum.ToString());
+
+                return GetDatabase().Update("Statistics", data, string.Format("Subject = '{0}'", subject.Trim()));
+            }
+            else
+            {
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                data.Add("Subject", subject.ToString());
+                data.Add("Success", success.ToString());
+                data.Add("Error", error.ToString());
+
+                return GetDatabase().Insert("Statistics", data);
+            }
+        }
+
+        public bool DeleteStatisticsy(string subject)
+        {
+            return GetDatabase().ExecuteNonQuery(
+                string.Format("delete from Statistics where Subject = '{0}'", subject)
+                ) > 0;
         }
 
         public bool ClearStatistics(int days)

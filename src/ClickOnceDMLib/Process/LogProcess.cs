@@ -38,11 +38,11 @@ namespace ClickOnceDMLib.Process
                 default:
                 case LOGTYPE.INFO:
                 case LOGTYPE.SUCCESS:
-                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH")) + "-access.log";
+                    file = PathInfo.CombinePath(PathInfo.CurrentLog, DateTime.Now.ToString("yyyyMMddHH")) + "-access.log";
                     break;
 
                 case LOGTYPE.ERROR:
-                    file = PathInfo.CombinePath(PathInfo.Log, DateTime.Now.ToString("yyyyMMddHH")) + "-error.log";
+                    file = PathInfo.CombinePath(PathInfo.CurrentLog, DateTime.Now.ToString("yyyyMMddHH")) + "-error.log";
                     break;
             }
 
