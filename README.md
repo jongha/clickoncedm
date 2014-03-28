@@ -30,6 +30,7 @@ This project has two sub-projects. These two projects based on Microsoft .NET Fr
   <add key="Workspace" value="C:\Workspace\"/>
   <add key="BlockCount" value="200"/>
   <add key="BlockSleep" value="3000"/>
+  <add key="StatisticsDatabase" value="C:\ClickOnceDM\db\Statistics.db" />
 </appSettings>
 ```
 
@@ -56,6 +57,7 @@ This project has two sub-projects. These two projects based on Microsoft .NET Fr
 <appSettings>
   <add key="Workspace" value="C:\Workspace\" />
   <add key="Database" value="C:\ClickOnceDM\db\ClickOnceDM.db" />
+  <add key="StatisticsDatabase" value="C:\ClickOnceDM\db\Statistics.db" />
 </appSettings>
 ```
 
