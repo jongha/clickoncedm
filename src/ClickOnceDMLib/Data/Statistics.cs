@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace ClickOnceDMLib.Data
 {
@@ -31,21 +32,27 @@ namespace ClickOnceDMLib.Data
         public DataTable GetSearchStatistics(string subject)
         {
             return GetDatabase().GetDataTable(
-                string.Format("select Subject, Success, Error, Timestamp from Statistics where Subject like '%{0}%'", 
-                subject)
+                string.Format("select Subject, Success, Error, Timestamp from Statistics where Subject like '%{0}%'",
+                    HttpUtility.HtmlEncode(subject))
                 );
         }
 
         private DataTable GetStatistics(string subject)
         {
             return GetDatabase().GetDataTable(
-                string.Format("select Subject, Success, Error, Timestamp from Statistics where Subject = '{0}'", subject)
+                string.Format("select Subject, Success, Error, Timestamp from Statistics where Subject = '{0}'",
+                    HttpUtility.HtmlEncode(subject)
+                    )
                 );
         }
 
         public bool SetStatistics(string subject, long success, long error)
         {
+            subject = subject.Trim();
+
             DataTable dt = this.GetStatistics(subject);
+            subject = HttpUtility.HtmlEncode(subject);
+
             if (dt.Rows.Count > 0)
             {
                 long successSum = success, errorSum = error;
@@ -57,16 +64,16 @@ namespace ClickOnceDMLib.Data
                 }
 
                 Dictionary<string, string> data = new Dictionary<string, string>();
-                data.Add("Subject", subject.ToString());
+                data.Add("Subject", subject);
                 data.Add("Success", successSum.ToString());
                 data.Add("Error", errorSum.ToString());
 
-                return GetDatabase().Update("Statistics", data, string.Format("Subject = '{0}'", subject.Trim()));
+                return GetDatabase().Update("Statistics", data, string.Format("Subject = '{0}'", subject));
             }
             else
             {
                 Dictionary<string, string> data = new Dictionary<string, string>();
-                data.Add("Subject", subject.ToString());
+                data.Add("Subject", subject);
                 data.Add("Success", success.ToString());
                 data.Add("Error", error.ToString());
 
@@ -77,7 +84,8 @@ namespace ClickOnceDMLib.Data
         public bool DeleteStatisticsy(string subject)
         {
             return GetDatabase().ExecuteNonQuery(
-                string.Format("delete from Statistics where Subject = '{0}'", subject)
+                string.Format("delete from Statistics where Subject = '{0}'",
+                    HttpUtility.HtmlEncode(subject))
                 ) > 0;
         }
 

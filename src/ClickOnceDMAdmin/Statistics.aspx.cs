@@ -56,7 +56,9 @@ namespace ClickOnceDMAdmin
         {
             if (e.CommandName == "Delete")
             {
-                statisticsData.DeleteStatisticsy(e.CommandArgument.ToString());
+                statisticsData.DeleteStatisticsy(
+                    HttpContext.Current.Server.HtmlDecode(e.CommandArgument.ToString())
+                    );
             }
 
             Response.Redirect(Request.RawUrl, false);
