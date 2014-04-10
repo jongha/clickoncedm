@@ -4,7 +4,7 @@ ClickOnceDM is a mass email sending system. This program is written by C# on Mic
 
 ## Requirements
 
-### Microsoft Enterprise Library 5.0
+### Microsoft Enterprise Library
 
 [Microsoft Enterprise Library 5.0 Download](http://www.microsoft.com/en-us/download/details.aspx?id=15104)
 
