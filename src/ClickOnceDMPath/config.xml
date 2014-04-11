@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<configuration>
-  <sender>
-    <name>altools</name>
-    <address>no-reply@altools.co.kr</address>
-  </sender>
-  <title>title</title>
-  <body>body</body>
-</configuration>

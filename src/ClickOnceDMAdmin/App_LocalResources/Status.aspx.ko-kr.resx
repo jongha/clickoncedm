@@ -120,17 +120,29 @@
   <data name="Button_ClearLogs" xml:space="preserve">
     <value>로그 삭제</value>
   </data>
+  <data name="Label_Complete" xml:space="preserve">
+    <value>완료</value>
+  </data>
   <data name="Label_LogCount" xml:space="preserve">
     <value>로그 개수</value>
   </data>
+  <data name="Label_LogCountDesc" xml:space="preserve">
+    <value>개의 로그가 저장 중 입니다. 필요 없을 경우 '로그 삭제'를 클릭하시면 지워집니다.</value>
+  </data>
   <data name="Label_QueueCount" xml:space="preserve">
     <value>발송 중</value>
+  </data>
+  <data name="Label_QueueCountDesc" xml:space="preserve">
+    <value>개의 세트가 발송 중 입니다.</value>
   </data>
   <data name="Label_Status" xml:space="preserve">
     <value>상태</value>
   </data>
   <data name="Label_TicketCount" xml:space="preserve">
     <value>발송 대기</value>
+  </data>
+  <data name="Label_TicketCountDesc" xml:space="preserve">
+    <value>개가 발송 대기 중 입니다.</value>
   </data>
   <data name="Message_ClearLogsConfirm" xml:space="preserve">
     <value>정말로 로그파일을 삭제하시겠습니까?</value>

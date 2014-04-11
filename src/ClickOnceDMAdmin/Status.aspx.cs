@@ -14,12 +14,23 @@ namespace ClickOnceDMAdmin
 {
     public partial class Status : System.Web.UI.Page
     {
+        private int queueCount = 0;
+        protected int QueueProgressPercent
+        {
+            get
+            {
+                return Math.Max((int)(100 - (queueCount / 10240.0) * 100), 0);
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 litTicketsCount.Text = Directory.GetFiles(PathInfo.Ticket).Count().ToString("###,###,###,##0");
-                litQueueCount.Text = Directory.GetFiles(PathInfo.Queue).Count().ToString("###,###,###,##0");
+
+                queueCount = Directory.GetFiles(PathInfo.Queue).Count();
+                litQueueCount.Text = queueCount.ToString("###,###,###,##0");
 
                 // log file count
                 int logCount = Directory.GetDirectories(PathInfo.Log).Count();
